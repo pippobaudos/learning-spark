@@ -3,6 +3,7 @@
  */
 package com.oreilly.learningsparkexamples.scala
 
+// Disabled as the following class doesn't exist in this project
 import com.oreilly.learningsparkexamples.proto.Places
 
 import org.apache.spark._
