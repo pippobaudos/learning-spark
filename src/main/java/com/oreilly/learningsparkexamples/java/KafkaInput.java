@@ -20,21 +20,21 @@ import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.kafka.*;
 
 public final class KafkaInput {
-  public static void main(String[] args) throws Exception {
-    String zkQuorum = args[0];
-    String group = args[1];
-    SparkConf conf = new SparkConf().setAppName("KafkaInput");
-    // Create a StreamingContext with a 1 second batch size
-    JavaStreamingContext jssc = new JavaStreamingContext(conf, new Duration(1000));
-    Map<String, Integer> topics = new HashMap<String, Integer>();
-    topics.put("pandas", 1);
-    JavaPairDStream<String, String> input = KafkaUtils.createStream(jssc, zkQuorum, group, topics);
-    input.print();
-    // start our streaming context and wait for it to "finish"
-    jssc.start();
-    // Wait for 10 seconds then exit. To run forever call without a timeout
-    jssc.awaitTermination(10000);
-    // Stop the streaming context
-    jssc.stop();
-	}
+    public static void main(String[] args) throws Exception {
+        String zkQuorum = args[0];
+        String group = args[1];
+        SparkConf conf = new SparkConf().setAppName("KafkaInput");
+        // Create a StreamingContext with a 1 second batch size
+        JavaStreamingContext jssc = new JavaStreamingContext(conf, new Duration(1000));
+        Map<String, Integer> topics = new HashMap<String, Integer>();
+        topics.put("pandas", 1);
+        JavaPairDStream<String, String> input = KafkaUtils.createStream(jssc, zkQuorum, group, topics);
+        input.print();
+        // start our streaming context and wait for it to "finish"
+        jssc.start();
+        // Wait for 10 seconds then exit. To run forever call without a timeout
+        jssc.awaitTermination(10000);
+        // Stop the streaming context
+        jssc.stop();
+    }
 }

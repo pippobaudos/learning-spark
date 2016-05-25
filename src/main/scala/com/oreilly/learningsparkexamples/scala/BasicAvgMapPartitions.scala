@@ -31,10 +31,14 @@ object BasicAvgMapPartitions {
     }
     val sc = new SparkContext(master, "BasicAvgMapPartitions", System.getenv("SPARK_HOME"))
     val input = sc.parallelize(List(1, 2, 3, 4))
-    val result = input.mapPartitions(partition =>
-      // Here we only want to return a single element for each partition, but mapPartitions requires that we wrap our return in an Iterator
-      Iterator(AvgCount(0, 0).merge(partition)))
-      .reduce((x,y) => x.merge(y))
+    val result =
+      input.mapPartitions(
+        partition =>
+          Iterator(AvgCount(0, 0).merge(partition))
+      )
+      .reduce(
+        (x,y) => x.merge(y)
+      )
     println(result)
   }
 }
